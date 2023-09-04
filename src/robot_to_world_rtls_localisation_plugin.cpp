@@ -56,10 +56,13 @@ void R2WRTLSLocalisationPlugin::declare_parameters_()
   declare_range_std(node_);
   declare_minimal_range(node_);
   declare_maximal_range(node_);
+  declare_initiators_ids(node_);
   declare_initiators_names(node_);
   declare_initiators_positions(node_);
+  declare_responders_ids(node_);
   declare_responders_names(node_);
   declare_responders_positions(node_);
+  declare_enable_scheduler(node_);
 }
 
 //-----------------------------------------------------------------------------
@@ -101,19 +104,22 @@ void R2WRTLSLocalisationPlugin::init_diagnostic_publisher_()
 //-----------------------------------------------------------------------------
 void R2WRTLSLocalisationPlugin::init_scheduler_()
 {
-  using namespace std::placeholders;
-  auto cb = std::bind(&R2WRTLSLocalisationPlugin::process_ranging_request_, this, _1, _2, _3);
+  if (get_enable_scheduler(node_)) {
 
-  scheduler_ = std::make_unique<Scheduler>(
-    get_poll_rate(node_),
-    get_maximal_range(node_),
-    get_initiators_names(node_),
-    get_initiators_positions(node_),
-    get_responders_names(node_),
-    get_responders_positions(node_),
-    cb);
+    using namespace std::placeholders;
+    auto cb = std::bind(&R2WRTLSLocalisationPlugin::process_ranging_request_, this, _1, _2, _3);
 
-  scheduler_->start();
+    scheduler_ = std::make_unique<Scheduler>(
+      get_poll_rate(node_),
+      get_maximal_range(node_),
+      get_initiators_names(node_),
+      get_initiators_positions(node_),
+      get_responders_names(node_),
+      get_responders_positions(node_),
+      cb);
+
+    scheduler_->start();
+  }
 }
 
 //-----------------------------------------------------------------------------
