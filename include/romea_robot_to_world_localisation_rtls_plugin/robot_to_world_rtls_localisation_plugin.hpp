@@ -25,7 +25,7 @@
 #include "romea_rtls_utils/rtls_communication_hub.hpp"
 
 // local
-#include "romea_robot_to_world_localisation_rtls/visibility_control.h"
+#include "romea_robot_to_world_localisation_rtls_plugin/visibility_control.h"
 
 namespace romea
 {
