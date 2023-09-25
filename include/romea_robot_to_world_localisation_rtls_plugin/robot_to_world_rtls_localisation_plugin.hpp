@@ -1,8 +1,8 @@
 // Copyright 2022 INRAE, French National Research Institute for Agriculture, Food and Environment
 // Add license
 
-#ifndef ROMEA_ROBOT_TO_WOLRD_RTLS_LOCALISATION_PLUGIN_HPP_
-#define ROMEA_ROBOT_TO_WOLRD_RTLS_LOCALISATION_PLUGIN_HPP_
+#ifndef ROMEA_ROBOT_TO_WORLD_LOCALISATION_RTLS_PLUGIN__ROBOT_TO_WORLD_RTLS_LOCALISATION_PLUGIN_HPP_
+#define ROMEA_ROBOT_TO_WORLD_LOCALISATION_RTLS_PLUGIN__ROBOT_TO_WORLD_RTLS_LOCALISATION_PLUGIN_HPP_
 
 
 // std
@@ -44,13 +44,13 @@ public:
   using ObservationPose2DStampedMsg = romea_localisation_msgs::msg::ObservationPose2DStamped;
 
 public:
-  ROMEA_ROBOT_TO_WOLRD_LOCALISATION_RTLS_PUBLIC
+  ROMEA_ROBOT_TO_WOLRD_LOCALISATION_RTLS_PLUGIN_PUBLIC
   explicit R2WRTLSLocalisationPlugin(const rclcpp::NodeOptions & options);
 
-  ROMEA_ROBOT_TO_WOLRD_LOCALISATION_RTLS_PUBLIC
+  ROMEA_ROBOT_TO_WOLRD_LOCALISATION_RTLS_PLUGIN_PUBLIC
   virtual ~R2WRTLSLocalisationPlugin() = default;
 
-  ROMEA_ROBOT_TO_WOLRD_LOCALISATION_RTLS_PUBLIC
+  ROMEA_ROBOT_TO_WOLRD_LOCALISATION_RTLS_PLUGIN_PUBLIC
   rclcpp::node_interfaces::NodeBaseInterface::SharedPtr
   get_node_base_interface() const;
 
@@ -99,9 +99,8 @@ protected:
   std::shared_ptr<StampedPublisherBase<ObservationPose>> pose_pub_;
   std::shared_ptr<StampedPublisherBase<DiagnosticReport>> diagnostic_pub_;
   // rclcpp::TimerBase::SharedPtr timer_;
-
 };
 
 }  // namespace romea
 
-#endif  // ROMEA_ROBOT_TO_WOLRD_RTLS_LOCALISATION_PLUGIN_HPP_
+#endif  // ROMEA_ROBOT_TO_WORLD_LOCALISATION_RTLS_PLUGIN__ROBOT_TO_WORLD_RTLS_LOCALISATION_PLUGIN_HPP_

@@ -105,7 +105,6 @@ void R2WRTLSLocalisationPlugin::init_diagnostic_publisher_()
 void R2WRTLSLocalisationPlugin::init_scheduler_()
 {
   if (get_enable_scheduler(node_)) {
-
     using namespace std::placeholders;
     auto cb = std::bind(&R2WRTLSLocalisationPlugin::process_ranging_request_, this, _1, _2, _3);
 
