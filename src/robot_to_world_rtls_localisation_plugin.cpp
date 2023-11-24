@@ -28,6 +28,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 //-----------------------------------------------------------------------------
 R2WRTLSLocalisationPlugin::R2WRTLSLocalisationPlugin(const rclcpp::NodeOptions & options)
@@ -102,14 +104,15 @@ void R2WRTLSLocalisationPlugin::init_range_publisher_()
 //-----------------------------------------------------------------------------
 void R2WRTLSLocalisationPlugin::init_pose_publisher_()
 {
-  pose_pub_ = make_stamped_data_publisher<ObservationPose, ObservationPose2DStampedMsg>(
+  pose_pub_ = make_stamped_data_publisher<core::ObservationPose, ObservationPose2DStampedMsg>(
     node_, "pose", get_map_frame_id(node_), sensor_data_qos(), true);
 }
 
 //-----------------------------------------------------------------------------
 void R2WRTLSLocalisationPlugin::init_diagnostic_publisher_()
 {
-  diagnostic_pub_ = make_diagnostic_publisher<DiagnosticReport>(node_, node_->get_name(), 1.0);
+  diagnostic_pub_ =
+    make_diagnostic_publisher<core::DiagnosticReport>(node_, node_->get_name(), 1.0);
 }
 
 //-----------------------------------------------------------------------------
@@ -159,10 +162,10 @@ void R2WRTLSLocalisationPlugin::process_odom_(OdometryMsg::ConstSharedPtr msg)
 void R2WRTLSLocalisationPlugin::process_ranging_request_(
   const size_t & initiator_index,
   const size_t & responder_index,
-  const Duration & timeout)
+  const core::Duration & timeout)
 {
   rtls_communication_hub_->send_ranging_request(
-    initiator_index, responder_index, durationToSecond(timeout));
+    initiator_index, responder_index, core::durationToSecond(timeout));
 
   if (initiator_index == 0 && responder_index == 0) {
     plugin_->selectRespondersRanges(scheduler_->getSelectedRespondersIndexes());
@@ -202,7 +205,8 @@ void R2WRTLSLocalisationPlugin::publish_range_(
   range_pub_->publish(std::move(range_msg));
 }
 
+}  // namespace ros2
 }  // namespace romea
 
 #include "rclcpp_components/register_node_macro.hpp"
-RCLCPP_COMPONENTS_REGISTER_NODE(romea::R2WRTLSLocalisationPlugin)
+RCLCPP_COMPONENTS_REGISTER_NODE(romea::ros2::R2WRTLSLocalisationPlugin)
